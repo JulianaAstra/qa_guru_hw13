@@ -1,9 +1,10 @@
-package tests;
+package tests.reqres;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import static io.restassured.RestAssured.*;
 import static io.restassured.http.ContentType.JSON;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
@@ -11,9 +12,10 @@ import static org.hamcrest.CoreMatchers.is;
 
 public class ReqresTests extends TestBase {
     @Test
-    @DisplayName("Получить список всех пользователей")
+    @DisplayName("GET Получить список всех пользователей")
     void getUsersTest() {
       given()
+              .header("x-api-key",API_KEY)
               .queryParam("page", 1)
               .queryParam("per_page", 12)
               .log().uri()
@@ -23,7 +25,7 @@ public class ReqresTests extends TestBase {
               .log().status()
               .log().body()
               .statusCode(200)
-              .assertThat().body(matchesJsonSchemaInClasspath("schemas/users-schema.json"))
+              .assertThat().body(matchesJsonSchemaInClasspath("schemas/reqres/users-list-schema.json"))
               .body("page", is(1))
               .body("per_page", is(12))
               .body("total", is(12))
@@ -31,7 +33,7 @@ public class ReqresTests extends TestBase {
     }
 
     @Test
-    @DisplayName("Добавить нового пользователя")
+    @DisplayName("POST Добавить нового пользователя")
     void addNewUser() {
         TestData testData = new TestData();
         ObjectMapper objectMapper = new ObjectMapper();
@@ -51,7 +53,7 @@ public class ReqresTests extends TestBase {
                 .log().status()
                 .log().body()
                 .statusCode(201)
-                .body(matchesJsonSchemaInClasspath("schemas/user-schema.json"))
+                .body(matchesJsonSchemaInClasspath("schemas/reqres/user-created-schema.json"))
                 .body("name", is(testData.userName))
                 .body("job", is(testData.job));
     }
