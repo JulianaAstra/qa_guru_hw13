@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "users",
+  "type": "object",
+  "properties": {
+    "page": {"type": "integer"},
+    "per_page": {"type": "integer"},
+    "total": {"type": "integer"},
+    "total_pages": {"type": "integer"},
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "integer"},
+          "name": {"type": "string"},
+          "year": {"type": "integer"},
+          "color": {"type":  "string"},
+          "pantone_valuer": {"type": "string"}
+        },
+      "required": ["id", "name"]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  },
+  "required": ["page", "per_page", "total", "total_pages", "data"]
+}

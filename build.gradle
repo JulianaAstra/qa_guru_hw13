@@ -1,5 +1,5 @@
 plugins {
-    id 'java-library'
+    id 'java'
 }
 
 repositories {
@@ -8,19 +8,13 @@ repositories {
 
 dependencies {
     testImplementation(
-            'io.rest-assured:rest-assured:5.3.1',
-            "org.junit.jupiter:junit-jupiter:5.10.0",
-            'org.slf4j:slf4j-simple:2.0.7'
+            'io.rest-assured:rest-assured:5.5.2',
+            'org.junit.jupiter:junit-jupiter:5.10.0',
+            'org.slf4j:slf4j-simple:2.0.7',
+            'io.rest-assured:json-schema-validator:5.0.0'
     )
 }
 
-tasks.withType(Test) {
+test {
     useJUnitPlatform()
-
-    testLogging {
-        lifecycle {
-            events "started", "skipped", "failed", "standard_error", "standard_out"
-            exceptionFormat "short"
-        }
-    }
 }
