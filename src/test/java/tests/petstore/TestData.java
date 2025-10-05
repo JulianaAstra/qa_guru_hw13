@@ -10,6 +10,7 @@ public class TestData {
     static ObjectMapper objectMapper = new ObjectMapper();
 
     public static Integer petId = faker.number().numberBetween(1000, 9999);
+    public static Integer notExistPetId = faker.number().numberBetween(999999999, 1000000000);
     public static String petName = faker.funnyName().name();
     public static String availableStatus = "available";
     public static String petTag = "test_tag";

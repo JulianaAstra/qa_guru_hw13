@@ -42,4 +42,16 @@ public class PetStoreTests extends TestBase {
                 .body("tags[0].id", is(petTagId))
                 .body("tags[0].name", is(petTag));
     }
+
+    @Test
+    @DisplayName("DELETE Удалить несуществующего питомца")
+    void deletePetTest() {
+        given()
+                .header("x-api-key", API_KEY)
+                .log().uri()
+        .when()
+                .delete(baseURI + basePath + "/" + notExistPetId)
+        .then()
+                .statusCode(404);
+    }
 }
