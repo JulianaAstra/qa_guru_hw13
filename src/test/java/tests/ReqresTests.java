@@ -30,9 +30,9 @@ public class ReqresTests extends TestBase {
     @Test
     @DisplayName("Добавить нового пользователя")
     void addNewUser() {
+        TestData testData = new TestData();
         ObjectMapper objectMapper = new ObjectMapper();
         ObjectNode user = objectMapper.createObjectNode();
-        TestData testData = new TestData();
 
         user.put("name", testData.userName);
         user.put("job", testData.job);
@@ -44,7 +44,6 @@ public class ReqresTests extends TestBase {
         .when()
                 .post(baseURI + basePath + "/users")
         .then()
-                .log().body()
                 .statusCode(201)
                 .body(matchesJsonSchemaInClasspath("schemas/user-schema.json"))
                 .body("name", is(testData.userName))
