@@ -6,10 +6,25 @@ import static io.restassured.RestAssured.basePath;
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static tests.petstore.TestData.*;
 
 public class PetStoreTests extends TestBase {
+    @Test
+    @DisplayName("GET успешный логин")
+    void loginPetStore() {
+        TestData testData = new TestData();
+        given()
+                .header("x-api-key", API_KEY)
+                .queryParam("username", testData.userName)
+                .queryParam("password", testData.userPassword)
+        .when()
+                .get(baseURI + "/user/login")
+        .then()
+                .statusCode(200).body("message", containsString("logged in user session"));
+    }
+
     @Test
     @DisplayName("PUT Обновить теги питомца")
     void renewPetTagsTest() {
@@ -20,9 +35,9 @@ public class PetStoreTests extends TestBase {
                 .body(testData.newPet)
                 .header("x-api-key", API_KEY)
                 .contentType(JSON)
-                .when()
+        .when()
                 .post(baseURI + basePath)
-                .then()
+        .then()
                 .log().body()
                 .statusCode(200);
 
@@ -32,9 +47,9 @@ public class PetStoreTests extends TestBase {
                 .header("x-api-key", API_KEY)
                 .contentType(JSON)
                 .log().uri()
-                .when()
+        .when()
                 .put(baseURI + basePath)
-                .then()
+        .then()
                 .log().status()
                 .log().body()
                 .statusCode(200)

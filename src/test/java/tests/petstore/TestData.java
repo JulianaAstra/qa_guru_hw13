@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.javafaker.Faker;
+import java.util.Locale;
 
 public class TestData {
     private static Faker faker = new Faker();
@@ -18,6 +19,9 @@ public class TestData {
 
     public ObjectNode newPet = generateAvailablePet(petId, petName, availableStatus);
     public ObjectNode petWithTag = generatePetWithTag(petId);
+
+    public String userName = faker.name().lastName().toLowerCase(Locale.ROOT);
+    public String userPassword = faker.hipster().word();
 
     public static ObjectNode generateAvailablePet(int id, String name, String status) {
         ObjectNode pet = objectMapper.createObjectNode();
