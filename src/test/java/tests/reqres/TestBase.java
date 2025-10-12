@@ -10,6 +10,6 @@ public class TestBase {
     @BeforeAll
     static void setUp() {
         baseURI = "https://reqres.in";
-        basePath = "/api/users";
+        basePath = "/api";
     }
 }

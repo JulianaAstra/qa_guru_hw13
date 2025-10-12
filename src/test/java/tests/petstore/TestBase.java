@@ -8,7 +8,7 @@ public class TestBase {
 
     @BeforeAll
     static void setUp() {
-        baseURI = "https://petstore.swagger.io/v2";
-        basePath = "/pet";
+        baseURI = "https://petstore.swagger.io";
+        basePath = "/v2";
     }
 }

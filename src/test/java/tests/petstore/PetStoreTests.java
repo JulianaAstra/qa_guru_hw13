@@ -2,8 +2,6 @@ package tests.petstore;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import static io.restassured.RestAssured.basePath;
-import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
 import static org.hamcrest.CoreMatchers.containsString;
@@ -20,7 +18,7 @@ public class PetStoreTests extends TestBase {
                 .queryParam("username", testData.userName)
                 .queryParam("password", testData.userPassword)
         .when()
-                .get(baseURI + "/user/login")
+                .get("/user/login")
         .then()
                 .statusCode(200).body("message", containsString("logged in user session"));
     }
@@ -36,7 +34,7 @@ public class PetStoreTests extends TestBase {
                 .header("x-api-key", API_KEY)
                 .contentType(JSON)
         .when()
-                .post(baseURI + basePath)
+                .post("/pet")
         .then()
                 .log().body()
                 .statusCode(200);
@@ -48,7 +46,7 @@ public class PetStoreTests extends TestBase {
                 .contentType(JSON)
                 .log().uri()
         .when()
-                .put(baseURI + basePath)
+                .put("/pet")
         .then()
                 .log().status()
                 .log().body()
@@ -65,7 +63,7 @@ public class PetStoreTests extends TestBase {
                 .header("x-api-key", API_KEY)
                 .log().uri()
         .when()
-                .delete(baseURI + basePath + "/" + notExistPetId)
+                .delete("/pet/" + notExistPetId)
         .then()
                 .statusCode(404);
     }
